@@ -9,6 +9,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,10 +19,7 @@ import pers.tany.yukinoaapi.interfacepart.builder.IItemBuilder;
 import pers.tany.yukinoaapi.interfacepart.configuration.IConfig;
 import pers.tany.yukinoaapi.interfacepart.inventory.IInventory;
 import pers.tany.yukinoaapi.interfacepart.item.IItem;
-import pers.tany.yukinoaapi.interfacepart.other.IDouble;
-import pers.tany.yukinoaapi.interfacepart.other.IList;
-import pers.tany.yukinoaapi.interfacepart.other.IString;
-import pers.tany.yukinoaapi.interfacepart.other.ITime;
+import pers.tany.yukinoaapi.interfacepart.other.*;
 import pers.tany.yukinoaapi.interfacepart.serializer.ISerializer;
 import pers.tany.yukinoaapi.realizationpart.VaultUtil;
 import pers.tany.yukinoaapi.realizationpart.builder.ItemBuilder;
@@ -30,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MarketInterface implements InventoryHolder, Listener {
+    private final String serial;
 
     private final Inventory inventory;
     private final Player player;
@@ -91,6 +91,7 @@ public class MarketInterface implements InventoryHolder, Listener {
 
         this.inventory = inventory;
         this.player = player;
+        this.serial = IRandom.createRandomString(8);
 
         Bukkit.getPluginManager().registerEvents(this, Main.plugin);
         taskID = new BukkitRunnable() {
@@ -143,6 +144,10 @@ public class MarketInterface implements InventoryHolder, Listener {
     @Override
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public String getSerial() {
+        return serial;
     }
 
     @EventHandler
@@ -253,12 +258,29 @@ public class MarketInterface implements InventoryHolder, Listener {
     }
 
     @EventHandler
+    private void onPlayerQuit(PlayerQuitEvent evt) {
+        if (evt.getPlayer().equals(player)) {
+            Bukkit.getScheduler().cancelTask(taskID);
+            HandlerList.unregisterAll(this);
+        }
+    }
+
+    @EventHandler
     private void onInventoryClose(InventoryCloseEvent evt) {
         if (evt.getInventory().getHolder() instanceof MarketInterface && evt.getPlayer() instanceof Player) {
-            if (evt.getPlayer().equals(player) && !buy && !sell) {
+            MarketInterface marketInterface = (MarketInterface) evt.getInventory().getHolder();
+            if (evt.getPlayer().equals(player) && !buy && !sell && marketInterface.getSerial().equals(serial)) {
                 Bukkit.getScheduler().cancelTask(taskID);
                 HandlerList.unregisterAll(this);
             }
+        }
+    }
+
+    @EventHandler
+    private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent evt) {
+        Player player = evt.getPlayer();
+        if (player.getName().equals(this.player.getName())) {
+            evt.setCancelled(true);
         }
     }
 
@@ -274,9 +296,18 @@ public class MarketInterface implements InventoryHolder, Listener {
                 try {
                     number = Integer.parseInt(evt.getMessage());
                     if (number > surplusNumber) {
-                        throw new Exception();
+                        throw new NumberFormatException();
                     }
-                } catch (Exception e) {
+                    if (number < 0) {
+                        throw new NumberFormatException();
+                    }
+                    if (number == 0) {
+                        Bukkit.getScheduler().cancelTask(taskID);
+                        HandlerList.unregisterAll(this);
+                        player.sendMessage("§c成功取消操作");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
                     player.sendMessage("§c请输入0 - " + surplusNumber + "的数字");
                     return;
                 }
@@ -309,9 +340,18 @@ public class MarketInterface implements InventoryHolder, Listener {
                 try {
                     number = Integer.parseInt(evt.getMessage());
                     if (number > has) {
-                        throw new Exception();
+                        throw new NumberFormatException();
                     }
-                } catch (Exception e) {
+                    if (number < 0) {
+                        throw new NumberFormatException();
+                    }
+                    if (number == 0) {
+                        Bukkit.getScheduler().cancelTask(taskID);
+                        HandlerList.unregisterAll(this);
+                        player.sendMessage("§c成功取消操作");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
                     player.sendMessage("§c请输入0 - " + has + "的数字");
                     return;
                 }
