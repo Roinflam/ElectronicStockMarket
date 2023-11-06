@@ -1,0 +1,10 @@
+#跌停倍率
+MinMagnification: 10%
+#涨停倍率
+MaxMagnification: 250%
+
+#每...分钟让所有币进行涨跌计算
+BreakMarket: 180
+
+#卖出后需要等...分钟才能重新买入此币
+BuyCoolding: 120

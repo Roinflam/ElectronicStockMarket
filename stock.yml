@@ -1,0 +1,206 @@
+ElectronicCurrency:
+  #  编号
+  "0":
+    #    电子币名称
+    Name: '&6比特币'
+    #    电子币lore介绍
+    Lore:
+      - '&a&l比特币作为当前最火爆的电子币，把无数人变成了矿工'
+      - '&a&l但比特币与其他虚拟货币最大的不同，是其总数量非常有限，具有的稀缺性'
+    #    电子币默认价格
+    DefaultMoney: 10000
+    #    全服最多共拥有...个币
+    MaxNumber: 5
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 40%
+    DefaultDownProbability: 55%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 10%-65%
+    UpDownProbability: 20%-45%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 10
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 10%
+    IncreaseRateDownProbability: 2%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 3%
+    DecreaseIncreaseRateDownProbability: 8%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 90%
+  "1":
+    Name: '&e狗币'
+    Lore:
+      - '&a&l因梗而产生的电子币'
+      - '&a&l“呵，更喜欢狗是吗”'
+    DefaultMoney: 1000
+    MaxNumber: 50
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 30%
+    DefaultDownProbability: 50%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 20%-55%
+    UpDownProbability: 25%-45%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 3
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 3%
+    IncreaseRateDownProbability: 3%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 3%
+    DecreaseIncreaseRateDownProbability: 6%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 60%
+  "2":
+    Name: '&f牛币'
+    Lore:
+      - '&a&l你真__牛币！'
+    DefaultMoney: 100
+    MaxNumber: 100
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 15%
+    DefaultDownProbability: 55%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 10%-45%
+    UpDownProbability: 20%-40%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 6
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 12%
+    IncreaseRateDownProbability: 3%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 8%
+    DecreaseIncreaseRateDownProbability: 6%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 60%
+  "3":
+    Name: '&6沙币'
+    Lore:
+      - '&a&l由沙特阿拉伯一名程序员创造的电子币'
+    DefaultMoney: 5
+    MaxNumber: 1500
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 20%
+    DefaultDownProbability: 40%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 15%-50%
+    UpDownProbability: 20%-40%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 8
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 7%
+    IncreaseRateDownProbability: 4%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 6%
+    DecreaseIncreaseRateDownProbability: 4%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 40%
+  "4":
+    Name: '&b二币'
+    Lore:
+      - '&a&l这个币的名字真的不是在骂人！'
+    DefaultMoney: 30
+    MaxNumber: 50
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 35%
+    DefaultDownProbability: 35%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 10%-55%
+    UpDownProbability: 40%-80%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 8
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 2%
+    IncreaseRateDownProbability: 6%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 1%
+    DecreaseIncreaseRateDownProbability: 10%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 100%
+  "5":
+    Name: '&c爱国币'
+    Lore:
+      - '&a&l我们中国实在是太厉害了！！！'
+    DefaultMoney: 20
+    MaxNumber: 101
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 55%
+    DefaultDownProbability: 30%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 10%-55%
+    UpDownProbability: 20%-60%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 10
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 10%
+    IncreaseRateDownProbability: 10%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 1%
+    DecreaseIncreaseRateDownProbability: 40%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 120%
+  "6":
+    Name: '&a剑币'
+    Lore:
+      - '&a&l由曾是剑客的程序员所创造'
+    DefaultMoney: 10
+    MaxNumber: 500
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 10%
+    DefaultDownProbability: 30%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 50%-130%
+    UpDownProbability: 50%-120%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 2
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 100%
+    IncreaseRateDownProbability: 30%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 30%
+    DecreaseIncreaseRateDownProbability: 60%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 100%
+  "7":
+    Name: '&7冥币'
+    Lore:
+      - '&a&l阴间来的货币'
+    DefaultMoney: 1
+    MaxNumber: 3000
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 55%
+    DefaultDownProbability: 75%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 15%-55%
+    UpDownProbability: 15%-40%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 3
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 15%
+    IncreaseRateDownProbability: 15%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 15%
+    DecreaseIncreaseRateDownProbability: 30%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 100%
+  "8":
+    Name: '&2马币'
+    Lore:
+      - '&a&l由赛马娘游戏玩家所创建的电子币'
+    DefaultMoney: 3
+    MaxNumber: 1000
+    #默认上涨/下跌概率
+    DefaultRisingProbability: 20%
+    DefaultDownProbability: 45%
+    #每次上涨倍率提升/降低
+    UpRisingProbability: 20%-55%
+    UpDownProbability: 15%-40%
+    #每轮涨跌最多改变概率和倍率...次
+    MaxChangeProbabilityNumber: 5
+    #每次上涨，分别提高上涨的倍率，下跌的概率（下跌后重置）
+    IncreaseRateRisingProbability: 30%
+    IncreaseRateDownProbability: 10%
+    #每次下跌，分别提高上涨的概率，下跌的倍率（上涨后重置）
+    DecreaseIncreaseRateRisingProbability: 20%
+    DecreaseIncreaseRateDownProbability: 40%
+    #每次跌停让本次玩家上涨盈利的上限降低...%
+    DownMax: 30%

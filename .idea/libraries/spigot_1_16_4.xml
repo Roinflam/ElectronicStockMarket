@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="spigot-1.16.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../!API/spigot-1.16.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../!API/spigot-1.16.4.jar!/API" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../!API/spigot-1.16.4.jar!/" />
+    </SOURCES>
+  </library>
+</component>

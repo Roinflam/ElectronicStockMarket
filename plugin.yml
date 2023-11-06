@@ -1,0 +1,11 @@
+name: ElectronicStockMarket
+main: pers.tany.electronicstockmarket.Main
+version: 1.0.0
+author: tany
+description: 电子币股票
+depend: [ YukiNoaAPI,PlaceholderAPI ]
+api-version: 1.13
+commands:
+  ElectronicStockMarket:
+    usage: /ElectronicStockMarket
+    aliases: [ esm ]
