@@ -34,10 +34,10 @@ public class MarketInterface implements InventoryHolder, Listener {
     private final Inventory inventory;
     private final Player player;
     private final int taskID;
+    private final HashMap<Integer, String> slotItem = new HashMap<>();
     private String id;
     private boolean buy = false;
     private boolean sell = false;
-    private final HashMap<Integer, String> slotItem = new HashMap<>();
 
     public MarketInterface(Player player) {
         Inventory inventory = Bukkit.createInventory(this, 54, IString.color(Main.message.getString("Title")));
@@ -206,19 +206,27 @@ public class MarketInterface implements InventoryHolder, Listener {
                                     double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
                                     int magnification = Main.data.getInt(url + "Magnification", 100);
                                     double money = defaultMoney * ((double) magnification / 100);
-                                    if (VaultUtil.hasMoney(player, (int) (money * surplusNumber))) {
-                                        int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
+
+                                    int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
+                                    if (Main.stock.getInt(url + "PlayerMaxNumber") > 0) {
+                                        if (has >= Main.stock.getInt(url + "PlayerMaxNumber")) {
+                                            player.sendMessage("§c无法再购入此币了！");
+                                            return;
+                                        }
+                                    }
+                                    int number = Math.min(surplusNumber, Main.stock.getInt(url + "PlayerMaxNumber") - has);
+                                    if (VaultUtil.hasMoney(player, (int) (money * number))) {
                                         Main.data.set(url + "SurplusNumber", 0);
-                                        Main.data.set("Player." + player.getName() + "." + id + "." + "Has", has + surplusNumber);
+                                        Main.data.set("Player." + player.getName() + "." + id + "." + "Has", has + number);
                                         if (magnification < 100) {
                                             Main.data.set("Player." + player.getName() + "." + id + "." + "MaxMagnification", (int) ((double) magnification / 100 * IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
                                         }
                                         Main.data.set("Player." + player.getName() + "." + id + "." + "Coodling", Main.config.getInt("BuyCoolding"));
-                                        Main.economy.withdrawPlayer(player, money * surplusNumber);
+                                        Main.economy.withdrawPlayer(player, money * number);
                                         IConfig.saveConfig(Main.plugin, Main.data, "", "data");
-                                        player.sendMessage("§a购买成功！花费" + (int) (money * surplusNumber) + "游戏币");
+                                        player.sendMessage("§a购买成功！花费" + (int) (money * number) + "游戏币");
                                     } else {
-                                        player.sendMessage("§c游戏币不足！需要" + (int) (money * surplusNumber) + "游戏币");
+                                        player.sendMessage("§c游戏币不足！需要" + (int) (money * number) + "游戏币");
                                     }
                                 } else if (evt.getClick().equals(ClickType.SHIFT_RIGHT)) {
                                     int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
@@ -293,9 +301,19 @@ public class MarketInterface implements InventoryHolder, Listener {
                 String url = "ElectronicCurrency." + id + ".";
                 int surplusNumber = Main.data.getInt(url + "SurplusNumber", Main.stock.getInt(url + "MaxNumber"));
                 int number = 0;
+                int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
+                if (Main.stock.getInt(url + "PlayerMaxNumber") > 0) {
+                    if (has >= Main.stock.getInt(url + "PlayerMaxNumber")) {
+                        Bukkit.getScheduler().cancelTask(taskID);
+                        HandlerList.unregisterAll(this);
+                        player.sendMessage("§c无法再购入此币了！");
+                        return;
+                    }
+                }
+                int quantityAvailable = Math.min(surplusNumber, Main.stock.getInt(url + "PlayerMaxNumber") - has);
                 try {
                     number = Integer.parseInt(evt.getMessage());
-                    if (number > surplusNumber) {
+                    if (number > quantityAvailable) {
                         throw new NumberFormatException();
                     }
                     if (number < 0) {
@@ -308,15 +326,13 @@ public class MarketInterface implements InventoryHolder, Listener {
                         return;
                     }
                 } catch (NumberFormatException e) {
-                    player.sendMessage("§c请输入0 - " + surplusNumber + "的数字");
+                    player.sendMessage("§c请输入0 - " + quantityAvailable + "的数字");
                     return;
                 }
                 double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
                 int magnification = Main.data.getInt(url + "Magnification", 100);
                 double money = defaultMoney * ((double) magnification / 100);
                 if (VaultUtil.hasMoney(player, (int) (money * number))) {
-                    int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
-
                     Main.data.set(url + "SurplusNumber", surplusNumber - number);
                     Main.data.set("Player." + player.getName() + "." + id + "." + "Has", has + number);
                     if (magnification < 100) {

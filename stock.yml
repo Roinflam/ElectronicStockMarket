@@ -1,16 +1,18 @@
 ElectronicCurrency:
   #  编号
   "0":
-    #    电子币名称
+    #电子币名称
     Name: '&6比特币'
-    #    电子币lore介绍
+    #电子币lore介绍
     Lore:
       - '&a&l比特币作为当前最火爆的电子币，把无数人变成了矿工'
       - '&a&l但比特币与其他虚拟货币最大的不同，是其总数量非常有限，具有的稀缺性'
-    #    电子币默认价格
+    #电子币默认价格
     DefaultMoney: 10000
-    #    全服最多共拥有...个币
+    #全服最多共拥有...个币
     MaxNumber: 5
+    #玩家最多能拥有...个币（为0则不启用）
+    PlayerMaxNumber: 1
     #默认上涨/下跌概率
     DefaultRisingProbability: 40%
     DefaultDownProbability: 55%
@@ -34,6 +36,7 @@ ElectronicCurrency:
       - '&a&l“呵，更喜欢狗是吗”'
     DefaultMoney: 1000
     MaxNumber: 50
+    PlayerMaxNumber: 10
     #默认上涨/下跌概率
     DefaultRisingProbability: 30%
     DefaultDownProbability: 50%
@@ -56,6 +59,7 @@ ElectronicCurrency:
       - '&a&l你真__牛币！'
     DefaultMoney: 100
     MaxNumber: 100
+    PlayerMaxNumber: 20
     #默认上涨/下跌概率
     DefaultRisingProbability: 15%
     DefaultDownProbability: 55%
@@ -78,6 +82,7 @@ ElectronicCurrency:
       - '&a&l由沙特阿拉伯一名程序员创造的电子币'
     DefaultMoney: 5
     MaxNumber: 1500
+    PlayerMaxNumber: 150
     #默认上涨/下跌概率
     DefaultRisingProbability: 20%
     DefaultDownProbability: 40%
@@ -100,6 +105,7 @@ ElectronicCurrency:
       - '&a&l这个币的名字真的不是在骂人！'
     DefaultMoney: 30
     MaxNumber: 50
+    PlayerMaxNumber: 10
     #默认上涨/下跌概率
     DefaultRisingProbability: 35%
     DefaultDownProbability: 35%
@@ -122,6 +128,7 @@ ElectronicCurrency:
       - '&a&l我们中国实在是太厉害了！！！'
     DefaultMoney: 20
     MaxNumber: 101
+    PlayerMaxNumber: 11
     #默认上涨/下跌概率
     DefaultRisingProbability: 55%
     DefaultDownProbability: 30%
@@ -144,6 +151,7 @@ ElectronicCurrency:
       - '&a&l由曾是剑客的程序员所创造'
     DefaultMoney: 10
     MaxNumber: 500
+    PlayerMaxNumber: 50
     #默认上涨/下跌概率
     DefaultRisingProbability: 10%
     DefaultDownProbability: 30%
@@ -166,6 +174,7 @@ ElectronicCurrency:
       - '&a&l阴间来的货币'
     DefaultMoney: 1
     MaxNumber: 3000
+    PlayerMaxNumber: 300
     #默认上涨/下跌概率
     DefaultRisingProbability: 55%
     DefaultDownProbability: 75%
@@ -188,6 +197,7 @@ ElectronicCurrency:
       - '&a&l由赛马娘游戏玩家所创建的电子币'
     DefaultMoney: 3
     MaxNumber: 1000
+    PlayerMaxNumber: 100
     #默认上涨/下跌概率
     DefaultRisingProbability: 20%
     DefaultDownProbability: 45%
