@@ -64,13 +64,11 @@ public class MarketInterface implements InventoryHolder, Listener {
             double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
             double money = defaultMoney * ((double) magnification / 100);
             int surplusNumber = Main.data.getInt(url + "SurplusNumber", Main.stock.getInt(url + "MaxNumber"));
-            int maxMagnification = Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification", (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
+            int maxMagnification = Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false));
             int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
+            int quantityAvailable = Math.max(0, Math.min(surplusNumber, Main.stock.getInt(url + "PlayerMaxNumber")) - has);
             double allMoney = defaultMoney * ((double) Math.min(magnification, maxMagnification) / 100) * has;
 
-            if (Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification") > 0) {
-                money *= Main.data.getDouble("Player." + player.getName() + "." + id + ".MaxMagnification") / 100.0;
-            }
             if (Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification") > 0) {
                 allMoney *= Main.data.getDouble("Player." + player.getName() + "." + id + ".MaxMagnification") / 100.0;
             }
@@ -80,6 +78,7 @@ public class MarketInterface implements InventoryHolder, Listener {
             lore = IList.listReplace(lore, "[defaultMoney]", String.valueOf(IDouble.shortenDouble(defaultMoney, 2)));
             lore = IList.listReplace(lore, "[money]", String.valueOf(IDouble.shortenDouble(money, 2)));
             lore = IList.listReplace(lore, "[surplusNumber]", String.valueOf(surplusNumber));
+            lore = IList.listReplace(lore, "[quantityAvailable]", String.valueOf(quantityAvailable));
             lore = IList.listReplace(lore, "[number]", String.valueOf(has));
             lore = IList.listReplace(lore, "[maxMagnification]", maxMagnification + "%");
             lore = IList.listReplace(lore, "[allMoney]", String.valueOf(IDouble.shortenDouble(allMoney, 2)));
@@ -115,8 +114,9 @@ public class MarketInterface implements InventoryHolder, Listener {
                     double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
                     double money = defaultMoney * ((double) magnification / 100);
                     int surplusNumber = Main.data.getInt(url + "SurplusNumber", Main.stock.getInt(url + "MaxNumber"));
-                    int maxMagnification = Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification", (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
+                    int maxMagnification = Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false));
                     int has = Main.data.getInt("Player." + player.getName() + "." + id + "." + "Has");
+                    int quantityAvailable = Math.max(0, Math.min(surplusNumber, Main.stock.getInt(url + "PlayerMaxNumber")) - has);
                     double allMoney = defaultMoney * ((double) Math.min(magnification, maxMagnification) / 100) * has;
 
                     if (Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification") > 0) {
@@ -128,6 +128,7 @@ public class MarketInterface implements InventoryHolder, Listener {
                     lore = IList.listReplace(lore, "[defaultMoney]", String.valueOf(IDouble.shortenDouble(defaultMoney, 2)));
                     lore = IList.listReplace(lore, "[money]", String.valueOf(IDouble.shortenDouble(money, 2)));
                     lore = IList.listReplace(lore, "[surplusNumber]", String.valueOf(surplusNumber));
+                    lore = IList.listReplace(lore, "[quantityAvailable]", String.valueOf(quantityAvailable));
                     lore = IList.listReplace(lore, "[number]", String.valueOf(has));
                     lore = IList.listReplace(lore, "[maxMagnification]", maxMagnification + "%");
                     lore = IList.listReplace(lore, "[allMoney]", String.valueOf(IDouble.shortenDouble(allMoney, 2)));
@@ -216,7 +217,7 @@ public class MarketInterface implements InventoryHolder, Listener {
                                     }
                                     int number = Math.min(surplusNumber, Main.stock.getInt(url + "PlayerMaxNumber") - has);
                                     if (VaultUtil.hasMoney(player, (int) (money * number))) {
-                                        Main.data.set(url + "SurplusNumber", 0);
+                                        Main.data.set(url + "SurplusNumber", surplusNumber - number);
                                         Main.data.set("Player." + player.getName() + "." + id + "." + "Has", has + number);
                                         if (magnification < 100) {
                                             Main.data.set("Player." + player.getName() + "." + id + "." + "MaxMagnification", (int) ((double) magnification / 100 * IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
@@ -241,7 +242,7 @@ public class MarketInterface implements InventoryHolder, Listener {
                                     }
                                     int surplusNumber = Main.data.getInt(url + "SurplusNumber", Main.stock.getInt(url + "MaxNumber"));
                                     double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
-                                    int magnification = Math.min(Main.data.getInt(url + "Magnification", 100), Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification", (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false))));
+                                    int magnification = Math.min(Main.data.getInt(url + "Magnification", 100), Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
                                     double money = defaultMoney * ((double) magnification / 100);
                                     double allMoney = money * has;
 
@@ -333,7 +334,6 @@ public class MarketInterface implements InventoryHolder, Listener {
                 int magnification = Main.data.getInt(url + "Magnification", 100);
                 double money = defaultMoney * ((double) magnification / 100);
                 if (VaultUtil.hasMoney(player, (int) (money * number))) {
-                    Main.data.set(url + "SurplusNumber", surplusNumber - number);
                     Main.data.set("Player." + player.getName() + "." + id + "." + "Has", has + number);
                     if (magnification < 100) {
                         Main.data.set("Player." + player.getName() + "." + id + "." + "MaxMagnification", (int) ((double) magnification / 100 * IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
@@ -373,7 +373,7 @@ public class MarketInterface implements InventoryHolder, Listener {
                 }
                 int surplusNumber = Main.data.getInt(url + "SurplusNumber", Main.stock.getInt(url + "MaxNumber"));
                 double defaultMoney = Main.stock.getDouble(url + "DefaultMoney");
-                int magnification = Math.min(Main.data.getInt(url + "Magnification", 100), Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), Main.data.getInt("Player." + player.getName() + "." + id + ".MaxMagnification", (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false))));
+                int magnification = Math.min(Main.data.getInt(url + "Magnification", 100), Math.max((int) IDouble.percentageNumber(Main.config.getString("MinMagnification"), false), (int) IDouble.percentageNumber(Main.config.getString("MaxMagnification"), false)));
                 double money = defaultMoney * ((double) magnification / 100);
                 double allMoney = money * number;
 

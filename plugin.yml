@@ -1,6 +1,6 @@
 name: ElectronicStockMarket
 main: pers.tany.electronicstockmarket.Main
-version: 1.0.1
+version: 1.0.2
 author: tany
 description: 电子币股票
 depend: [ YukiNoaAPI,PlaceholderAPI ]
